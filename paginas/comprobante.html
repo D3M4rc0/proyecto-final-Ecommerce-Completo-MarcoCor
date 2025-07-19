@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comprobante de Pedido</title>
+
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/comprobante.css"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="icon" href="/favicon/film-fotografico.png" />
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <div id="nav-dinamico"></div>
+
+  <main class="comprobante-main">
+    <h1>Comprobante de Pedido</h1>
+
+    <div class="opciones-comprobante">
+      <div class="selector-formato">
+        <button id="btn-ver-factura" class="activo">Factura</button>
+        <button id="btn-ver-ticket">Ticket</button>
+      </div>
+      <div class="acciones-formato">
+        <button id="btn-imprimir">Imprimir Formato Actual</button>
+        <button onclick="volverInicio()">Volver al inicio</button>
+      </div>
+    </div>
+
+    <!-- Formato Factura -->
+    <section id="formato-factura" class="comprobante-factura activa">
+      <div class="cabecera-factura">
+        <div class="datos-empresa">
+          <h2>La Resto-Sería</h2>
+          <img src="/img/icono-pestania.png" alt="Logo Empresa" class="logo-empresa">
+          <p>Dir: Av. Corrientes 3247, CABA</p>
+          <p>CUIT: 20-12345678-9</p>
+          <p>E-mail: info@larestoseria.com</E-mail></p>
+          <p class="fecha-factura"></p>
+          <p class="numero-pedido"></p>
+        </div>
+      </div>
+      <div class="datos-cliente">
+        <h3>Datos del Cliente</h3>
+        <div class="datos-cliente-contenido"></div>
+      </div>
+      <div class="tabla-productos-container">
+        <table class="tabla-productos">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th class="text-right">Precio Unit.</th>
+              <th class="text-center">Cantidad</th>
+              <th class="text-right">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="text-right"><strong>Total</strong></td>
+              <td class="text-right"><strong class="total-factura"></strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="footer-factura">
+        <p class="estado-pedido"></p>
+        <p class="notas-pedido"></p>
+      </div>
+    </section>
+
+    <!-- Formato Ticket -->
+    <section id="formato-ticket" class="comprobante-ticket">
+      <h2>La Resto-Sería</h2>
+      <p class="direccion-ticket">Av. Corrientes 3247, CABA</p>
+      <p class="fecha-ticket"></p>
+      <p class="numero-pedido-ticket"></p>
+      <div class="linea-divisoria">--------------------------</div>
+      <div class="ticket-productos"></div>
+      <div class="ticket-total"></div>
+      <p class="gracias-ticket">Gracias por su compra!</p>
+    </section>
+  </main>
+
+  <div id="footer-dinamico"></div>
+
+    <!-- Botón Flecha hacia Arriba -->
+  <button class="scroll-top" title="Volver arriba">↑</button>
+
+
+  <script src="/js/comprobante.js"></script>
+  <script src="/js/includes.js"></script>
+  <script src="/js/script.js"></script>
+</body>
+</html>

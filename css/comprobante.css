@@ -1,0 +1,427 @@
+:root {
+  --color-primary: #1a1a1a;
+  --color-secondary: #2d2d2d;
+  --color-accent: #ff6f00;
+  --color-text: #ffffff;
+  --color-bg-factura: #ffffff;
+  --color-text-dark: #111111;
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor principal */
+.comprobante-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding:2rem;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  background-size: cover;
+  background-position: center;
+}
+
+/* Contenedor del comprobante */
+.comprobante-container {
+  background-color: var(--color-secondary);
+  width: 100%;
+  max-width: 800px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-accent);
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.comprobante-main h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--color-accent);
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.opciones-comprobante {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.selector-formato {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.acciones-formato {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Botones */
+.opciones-comprobante button {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: var(--font-primary);
+}
+
+.opciones-comprobante button:hover:not(:disabled) {
+  background: #e65100;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.opciones-comprobante button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Botones activos */
+button.activo {
+  background: #e65100;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #e65100;
+}
+
+/* Factura vertical A4 */
+.comprobante-factura {
+  background: var(--color-bg-factura);
+  color: var(--color-text-dark);
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-family: var(--font-secondary);
+  display: none;
+  width: 100%;
+  max-width: 210mm;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.comprobante-factura.activa {
+  display: block;
+}
+
+.cabecera-factura {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.logo-empresa {
+  width: 80px ;
+  margin-left: 1rem;
+  /* align-self: center; */
+  object-fit: contain;
+}
+
+.datos-empresa {
+  flex: 1;
+}
+
+.datos-empresa h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--color-accent);
+  font-size: 1.5rem;
+}
+
+.datos-empresa p {
+  margin: 0.3rem 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Tabla con bordes completos */
+.tabla-productos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.tabla-productos th, 
+.tabla-productos td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.tabla-productos th {
+  background: #f5f5f5;
+  font-weight: bold;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.datos-cliente h3 {
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.datos-cliente-contenido p {
+  margin: 0.3rem 0;
+}
+
+.footer-factura {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+/* Estilos para ticket */
+.comprobante-ticket {
+  background: white;
+  color: black;
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  display: none;
+  max-width: 300px;
+  margin: 0 auto;
+  border: 1px dashed #999;
+  width: 100%;
+}
+
+
+.comprobante-ticket.activa {
+  display: block;
+}
+
+.comprobante-ticket h2 {
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.direccion-ticket {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.fecha-ticket {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+}
+
+.numero-pedido-ticket {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.linea-divisoria {
+  text-align: center;
+  border-top: 1px dashed #000;
+  margin: 1rem 0;
+}
+
+.ticket-productos {
+  margin-bottom: 1rem;
+}
+
+.ticket-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.ticket-total {
+  text-align: right;
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-top: 1px dashed #000;
+  padding-top: 0.5rem;
+}
+
+.gracias-ticket {
+  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
+  font-size: 0.8rem;
+}
+
+/* error */
+.error-comprobante {
+  text-align: center;
+  padding: 2rem;
+  background: var(--color-secondary);
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-comprobante i {
+  font-size: 3rem;
+  color: #ff3d00;
+  margin-bottom: 1rem;
+}
+
+.error-comprobante h2 {
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.error-comprobante button {
+  padding: 0.8rem 1.5rem;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* impresión A4 vertical */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 1cm;
+  }
+
+  body {
+    background: white;
+    padding: 0;
+    margin: 0;
+  }
+
+  .comprobante-main {
+    padding: 0;
+    background: none;
+    width: 100%;
+  }
+
+  .comprobante-container {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .opciones-comprobante {
+    display: none;
+  }
+
+  .comprobante-factura {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .cabecera-factura {
+    margin-top: 0;
+  }
+
+  h1 {
+    font-size: 24pt!important;
+    margin-top: 0.5cm;
+  }
+
+  .logo-empresa {
+    width: 60px;
+    align-self: self-end;
+    object-fit: contain;
+  }
+
+  .tabla-productos {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .tabla-productos th, 
+  .tabla-productos td {
+    padding: 0.5rem;
+  }
+
+  /* ticket de 80mm */
+  .comprobante-ticket {
+    width: 76mm;
+    padding: 2mm;
+    margin: 0;
+    border: none;
+    font-size: 12px;
+  }
+
+  .comprobante-ticket h2 {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 16px !important;
+    width: 76mm;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comprobante-container {
+    padding: 1.5rem;
+  }
+
+  .cabecera-factura {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logo-empresa {
+    margin: 0 auto 1rem;
+  }
+
+  .datos-empresa {
+    text-align: center;
+  }
+
+  .selector-formato, .acciones-formato {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .selector-formato button, .acciones-formato button {
+    width: 100%;
+  }
+
+  .comprobante-ticket {
+    max-width: 90%;
+  }
+}

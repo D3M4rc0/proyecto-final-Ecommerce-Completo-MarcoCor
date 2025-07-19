@@ -1,0 +1,14 @@
+[
+  {
+    "nombre": "Administrador",
+    "email": "admin@restoseria.com",
+    "password": "admin123",
+    "esAdmin": true
+  },
+  {
+    "nombre": "Cliente",
+    "email": "cliente@restoseria.com",
+    "password": "cliente123",
+    "esAdmin": false
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nombre": "Pollo Rostizado",
+    "descripcion": "Pollo entero con especias al horno",
+    "precio": 18000,
+    "stock": 5,
+    "imagen": "pollo-rostizado.webp"
+  },
+  {
+    "id": 2,
+    "nombre": "Papas Rústicas",
+    "descripcion": "Papas al horno con especias",
+    "precio": 6000,
+    "stock": 7,
+    "imagen": "papas-rusticas.webp"
+  },
+  {
+    "id": 3,
+    "nombre": "Ensalada César",
+    "descripcion": "Lechuga, crutones, parmesano y pollo",
+    "precio": 9000,
+    "stock": 10,
+    "imagen": "ensalada-cesar.webp"
+  },
+  {
+    "id": 4,
+    "nombre": "Costillas BBQ",
+    "descripcion": "Costillas de cerdo en barbacoa",
+    "precio": 15500,
+    "stock": 4,
+    "imagen": "costillas-bbq.webp"
+  },
+  {
+    "id": 5,
+    "nombre": "Lomito",
+    "descripcion": "Lomo completo con huevo y jamón",
+    "precio": 15500,
+    "stock": 0,
+    "imagen": "sandwich-lomito.webp"
+  },
+  {
+    "id": 6,
+    "nombre": "Hamburguesa",
+    "descripcion": "Pan, carne, lechuga y tomate",
+    "precio": 14000,
+    "stock": 6,
+    "imagen": "sandwich-hamburguesa.webp"
+  }
+]

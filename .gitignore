@@ -1,0 +1,29 @@
+# Ignorar configuraciones del IDE
+.vscode/
+.idea/
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de entorno o virtualenvs
+.env
+*.env
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Archivos de log
+*.log
+
+# Archivos de sistema del editor
+*.swp
+*.swo
+
+# Node.js (si usás)
+node_modules/
+
+# Archivos de compilación (si aplica)
+dist/
+build/

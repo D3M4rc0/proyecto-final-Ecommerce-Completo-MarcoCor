@@ -1,0 +1,13 @@
+[
+  {
+    "id_pedido": "PED0001",
+    "cliente": "juanperez@gmail.com",
+    "fecha": "2025-07-09",
+    "metodo_pago": "Efectivo",
+    "productos": [
+      { "nombre": "Pollo Rostizado", "cantidad": 1, "precio": 18000 },
+      { "nombre": "Papas Rústicas", "cantidad": 2, "precio": 12000 }
+    ],
+    "total": 30000
+  }
+]

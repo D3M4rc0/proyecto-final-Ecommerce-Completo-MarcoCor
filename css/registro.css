@@ -1,0 +1,244 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  padding: 2rem;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                    url('../img/fondo-registro.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Tarjeta de registro */
+.auth-card {
+  background-color: var(--color-secondary);
+  padding: 2.5rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-accent);
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--color-accent);
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Grupos de formulario */
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  transition: var(--transition);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.3);
+}
+
+/* Checkbox de términos */
+.form-group-check {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.form-group-check input {
+  margin-right: 0.8rem;
+  width: auto;
+}
+
+.form-group-check label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+#ver-terminos {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.2rem;
+}
+
+#ver-terminos:hover {
+  text-decoration: underline;
+}
+
+/* Botón de registro */
+.btn-auth {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+}
+
+.btn-auth:hover {
+  background-color: #e65100;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Enlace para login */
+.auth-card p {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--color-text-muted);
+}
+
+.auth-card p a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-card p a:hover {
+  text-decoration: underline;
+}
+
+.error-msg {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  display: none;
+  font-weight: 500;
+}
+
+/* Modal de términos */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-contenido {
+  background-color: var(--color-secondary);
+  margin: 5% auto;
+  padding: 2.5rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border: 2px solid var(--color-accent);
+  position: relative;
+  animation: slideDown 0.3s ease;
+}
+
+.cerrar-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  color: var(--color-text-muted);
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cerrar-modal:hover {
+  color: var(--color-accent);
+}
+
+.modal h2 {
+  color: var(--color-accent);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.terminos-texto {
+  margin: 2rem 0;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.terminos-texto h3 {
+  color: var(--color-accent);
+  margin: 1.5rem 0 0.8rem;
+  font-size: 1.2rem;
+}
+
+.terminos-texto p {
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+#aceptar-terminos {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.8rem 2rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsiv */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 1rem;
+  }
+  
+  .auth-card {
+    padding: 1.5rem;
+  }
+  
+  .modal-contenido {
+    width: 95%;
+    padding: 1.5rem;
+  }
+}
