@@ -1,6 +1,6 @@
 // maneja Carga nav y footer
 function cargarIncludes() {
-  fetch('../parciales/encabezado.html')
+  fetch('/parciales/encabezado.html')
     .then(response => response.text())
     .then(data => {
       document.getElementById('nav-dinamico').innerHTML = data;
@@ -8,7 +8,7 @@ function cargarIncludes() {
       setupEventListeners();
     });
   
-  fetch('../parciales/pie.html')
+  fetch('/parciales/pie.html')
     .then(response => response.text())
     .then(data => {
       document.getElementById('footer-dinamico').innerHTML = data;
