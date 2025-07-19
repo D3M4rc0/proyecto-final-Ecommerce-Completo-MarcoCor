@@ -1,29 +1,37 @@
-// Maneja carga dinámica de nav y footer
-function cargarIncludes() {
-  // Detecta si la página está dentro de /paginas/ para ajustar ruta
-  const basePath = window.location.pathname.includes('/paginas/') ? '../' : '';
+async function cargarParcial(idContenedor, rutaRelativa) {
+  try {
+    const response = await fetch(rutaRelativa);
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar ${rutaRelativa} - status: ${response.status}`);
+    }
+    const data = await response.text();
+    document.getElementById(idContenedor).innerHTML = data;
+  } catch (error) {
+    console.error(`Error al cargar parcial: ${error.message}`);
+  }
+}
 
-  fetch(basePath + 'parciales/encabezado.html')
-    .then(response => {
-      if (!response.ok) throw new Error('No se pudo cargar encabezado.html');
-      return response.text();
-    })
-    .then(data => {
-      document.getElementById('encabezado').innerHTML = data;
-      actualizarEstadoUsuario();
-      setupEventListeners();
-    })
-    .catch(error => console.error(error));
+function detectarBasePath() {
+  // Ruta absoluta del archivo actual
+  const path = window.location.pathname.toLowerCase();
+  
+  // Si la URL contiene "/paginas/" asumimos que hay que subir un nivel
+  if (path.includes('/paginas/')) {
+    console.log('Ruta base detectada: ../');
+    return '../';
+  }
+  // Si estás en root o en otro lado
+  console.log('Ruta base detectada: ./');
+  return './';
+}
 
-  fetch(basePath + 'parciales/pie.html')
-    .then(response => {
-      if (!response.ok) throw new Error('No se pudo cargar pie.html');
-      return response.text();
-    })
-    .then(data => {
-      document.getElementById('pie').innerHTML = data;
-    })
-    .catch(error => console.error(error));
+async function cargarIncludes() {
+  const basePath = detectarBasePath();
+
+  await cargarParcial('encabezado', basePath + 'parciales/encabezado.html');
+  actualizarEstadoUsuario();
+  setupEventListeners();
+  await cargarParcial('pie', basePath + 'parciales/pie.html');
 }
 
 function actualizarEstadoUsuario() {
@@ -36,7 +44,6 @@ function actualizarEstadoUsuario() {
     if(navInvitado) navInvitado.style.display = 'none';
     if(navUsuario) navUsuario.style.display = 'flex';
 
-    // Mostrar dashboard solo si es admin
     if (navAdmin) {
       navAdmin.style.display = usuario.esAdmin ? 'flex' : 'none';
     }
@@ -45,7 +52,6 @@ function actualizarEstadoUsuario() {
       document.getElementById('nombre-usuario').textContent = usuario.nombre;
     }
 
-    // Actualizar contador del carrito
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     if(document.getElementById('carrito-contador')) {
       document.getElementById('carrito-contador').textContent = carrito.length;
