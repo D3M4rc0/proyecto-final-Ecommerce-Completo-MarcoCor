@@ -1,98 +1,90 @@
-async function cargarParcial(idContenedor, rutaRelativa) {
-  try {
-    const response = await fetch(rutaRelativa);
-    if (!response.ok) {
-      throw new Error(`No se pudo cargar ${rutaRelativa} - status: ${response.status}`);
-    }
-    const data = await response.text();
-    document.getElementById(idContenedor).innerHTML = data;
-  } catch (error) {
-    console.error(`Error al cargar parcial: ${error.message}`);
-  }
-}
-
-function detectarBasePath() {
-  // Ruta absoluta del archivo actual
-  const path = window.location.pathname.toLowerCase();
+// maneja Carga nav y footer
+function cargarIncludes() {
+  fetch('/parciales/encabezado.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('nav-dinamico').innerHTML = data;
+      actualizarEstadoUsuario();
+      setupEventListeners();
+    });
   
-  // Si la URL contiene "/paginas/" asumimos que hay que subir un nivel
-  if (path.includes('/paginas/')) {
-    console.log('Ruta base detectada: ../');
-    return '../';
-  }
-  // Si estás en root o en otro lado
-  console.log('Ruta base detectada: ./');
-  return './';
-}
-
-async function cargarIncludes() {
-  const basePath = detectarBasePath();
-
-  await cargarParcial('encabezado', basePath + 'parciales/encabezado.html');
-  actualizarEstadoUsuario();
-  setupEventListeners();
-  await cargarParcial('pie', basePath + 'parciales/pie.html');
+  fetch('/parciales/pie.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer-dinamico').innerHTML = data;
+    });
 }
 
 function actualizarEstadoUsuario() {
-  const navUsuario = document.getElementById('nav-usuario');
-  const navInvitado = document.getElementById('nav-invitado');
-  const navAdmin = document.getElementById('nav-admin');
-  const usuario = JSON.parse(sessionStorage.getItem('usuarioLogueado'));
-
-  if (usuario) {
-    if(navInvitado) navInvitado.style.display = 'none';
-    if(navUsuario) navUsuario.style.display = 'flex';
-
-    if (navAdmin) {
-      navAdmin.style.display = usuario.esAdmin ? 'flex' : 'none';
+    const navUsuario = document.getElementById('nav-usuario');
+    const navInvitado = document.getElementById('nav-invitado');
+    const navAdmin = document.getElementById('nav-admin');
+    const usuario = JSON.parse(sessionStorage.getItem('usuarioLogueado'));
+    
+    if (usuario) {
+        navInvitado.style.display = 'none';
+        navUsuario.style.display = 'flex';
+        
+        // Mostrar dashboard solo si es admin
+        if (navAdmin) {
+            navAdmin.style.display = usuario.esAdmin ? 'flex' : 'none'; // Cambiado a flex
+        }
+        
+        document.getElementById('nombre-usuario').textContent = usuario.nombre;
+        
+        // Actualizar contador del carrito
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        document.getElementById('carrito-contador').textContent = carrito.length;
+    } else {
+        if (navUsuario) navUsuario.style.display = 'none';
+        if (navAdmin) navAdmin.style.display = 'none';
+        if (navInvitado) navInvitado.style.display = 'flex';
     }
-
-    if(document.getElementById('nombre-usuario')) {
-      document.getElementById('nombre-usuario').textContent = usuario.nombre;
-    }
-
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    if(document.getElementById('carrito-contador')) {
-      document.getElementById('carrito-contador').textContent = carrito.length;
-    }
-  } else {
-    if (navUsuario) navUsuario.style.display = 'none';
-    if (navAdmin) navAdmin.style.display = 'none';
-    if (navInvitado) navInvitado.style.display = 'flex';
-  }
 }
 
 function setupEventListeners() {
-  document.addEventListener('click', function(e) {
-    if (e.target && (e.target.id === 'btn-logout' || e.target.closest('#btn-logout'))) {
-      const confirmarSalida = confirm('¿Estás seguro que deseas cerrar sesión?');
-
-      if (confirmarSalida) {
-        sessionStorage.removeItem('usuarioLogueado');
-        actualizarEstadoUsuario();
-
-        const path = window.location.pathname;
-        if (path.includes('/paginas/')) {
-          window.location.href = '../index.html';
-        } else {
-          window.location.reload();
+    // Delegación de eventos mejorada v2
+    document.addEventListener('click', function(e) {
+        if (e.target && (e.target.id === 'btn-logout' || e.target.closest('#btn-logout'))) {
+            // Mostrar confirmación
+            const confirmarSalida = confirm('¿Estás seguro que deseas cerrar sesión?');
+            
+            if (confirmarSalida) {
+                // Limpiar la sesión
+                sessionStorage.removeItem('usuarioLogueado');
+                
+                // Opcional: Limpiar carrito al cerrar sesión
+                // localStorage.removeItem('carrito');
+                
+                // Actualizar UI
+                actualizarEstadoUsuario();
+                
+                // Redirigir a inicio indes
+                // window.location.href = 'index.html';
+                // Redirigir correctamente según la ubicación
+                const path = window.location.pathname;
+                if (path.includes('/paginas/')) {
+                    window.location.href = '/index.html';
+                } else {
+                    window.location.reload();
+                }
+            }
         }
-      }
-    }
-  });
-
-  const menuHamburguesa = document.querySelector('.menu-hamburguesa');
-  if (menuHamburguesa) {
-    menuHamburguesa.addEventListener('click', function() {
-      const navLinks = document.querySelector('.nav-links');
-      if (navLinks) {
-        navLinks.classList.toggle('active');
-        this.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-      }
     });
-  }
+    
+    // Menú hamburgues
+    const menuHamburguesa = document.querySelector('.menu-hamburguesa');
+    if (menuHamburguesa) {
+        menuHamburguesa.addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                navLinks.classList.toggle('active');
+                this.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+        });
+    }
 }
 
+// Inic
 document.addEventListener('DOMContentLoaded', cargarIncludes);
